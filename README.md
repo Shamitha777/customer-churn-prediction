@@ -11,23 +11,7 @@ Customer Churn Prediction is a Machine Learning web application that predicts wh
 - Display top factors influencing churn
 - Interactive and responsive web interface
 
-## Technologies Used
-- Python
-- Flask
-- Scikit-learn
-- Logistic Regression
-- Pandas
-- NumPy
-- HTML
-- CSS
 
 ## Dataset
 Telco Customer Churn Dataset
 
-## Project Structure
-customer-churn-prediction/
-│── app/
-│── dataset/
-│── models/
-│── requirements.txt
-│── README.md
