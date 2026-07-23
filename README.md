@@ -1,2 +1,33 @@
-# customer-churn-prediction
-Machine Learning-based Customer Churn Prediction System using Logistic Regression, Flask, HTML, CSS, and Python with an interactive dashboard and feature importance visualization.
+# Customer Churn Prediction
+
+## Overview
+Customer Churn Prediction is a Machine Learning web application that predicts whether a telecom customer is likely to leave the service. The project uses Logistic Regression and provides an interactive Flask-based dashboard for customer churn analysis.
+
+## Features
+- Predict customer churn using Machine Learning
+- Display churn probability and confidence score
+- Show customer risk level (High/Low)
+- Recommend customer retention actions
+- Display top factors influencing churn
+- Interactive and responsive web interface
+
+## Technologies Used
+- Python
+- Flask
+- Scikit-learn
+- Logistic Regression
+- Pandas
+- NumPy
+- HTML
+- CSS
+
+## Dataset
+Telco Customer Churn Dataset
+
+## Project Structure
+customer-churn-prediction/
+│── app/
+│── dataset/
+│── models/
+│── requirements.txt
+│── README.md
