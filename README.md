@@ -1,7 +1,8 @@
 # Customer Churn Prediction
+
 ## 🌐 Live Demo
 
-👉 [Customer Churn Prediction Live Demo]([https://customer-churn-prediction-1-whde.onrender.com])
+👉 **[Customer Churn Prediction Live Demo](https://customer-churn-prediction-1-whde.onrender.com)**
 
 
 ## Overview
