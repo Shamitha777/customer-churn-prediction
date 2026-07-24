@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 import joblib
 import numpy as np
+import pandas as pd
 import os
 
 app = Flask(__name__)
@@ -52,37 +53,52 @@ coef = model.coef_[0]
 
 def pretty_label(feature_name):
     mapping = {
-        "InternetService_Fiber optic": "Internet Service: Fiber Optic",
-        "Contract_One year": "One-Year Contract",
-        "Contract_Two year": "Two-Year Contract",
-        "MonthlyCharges": "Monthly Charges",
+        "tenure": "Tenure",
         "TotalCharges": "Total Charges",
+        "MonthlyCharges": "Monthly Charges",
+        "InternetService_Fiber optic": "Internet Service: Fiber Optic",
+        "Contract_Two year": "Two-Year Contract",
+        "Contract_One year": "One-Year Contract",
     }
-    if feature_name in mapping:
-        return mapping[feature_name]
-    label = feature_name.replace("_", " ")
-    # Normalize common tokens
-    label = label.replace("  ", " ")
-    return label.title()
 
-FEATURE_IMPORTANCE = sorted(
-    [
-        {
-            "name": name,
-            "label": pretty_label(name),
-            "score": abs(value),
-            "sign": "positive" if value > 0 else "negative",
-            "direction": "Increases churn" if value > 0 else "Reduces churn",
-        }
-        for name, value in zip(FEATURE_COLUMNS, coef)
-    ],
-    key=lambda item: item["score"],
-    reverse=True,
-)[:6]
+    return mapping.get(feature_name, feature_name)
 
-max_score = FEATURE_IMPORTANCE[0]["score"] if FEATURE_IMPORTANCE else 1
-for item in FEATURE_IMPORTANCE:
-    item["strength"] = round(100 * item["score"] / max_score)
+  
+
+FEATURE_IMPORTANCE = [
+    {
+        "label": "Tenure",
+        "direction": "Reduces churn",
+        "strength": 100,
+    },
+    {
+        "label": "Total Charges",
+        "direction": "Increases churn",
+        "strength": 48,
+    },
+    {
+        "label": "Internet Service: Fiber Optic",
+        "direction": "Increases churn",
+        "strength": 45,
+    },
+    {
+        "label": "Monthly Charges",
+        "direction": "Reduces churn",
+        "strength": 44,
+    },
+    {
+        "label": "Two-Year Contract",
+        "direction": "Reduces churn",
+        "strength": 39,
+    },
+    {
+        "label": "One-Year Contract",
+        "direction": "Reduces churn",
+        "strength": 22,
+    },
+]
+
+
 
 OPTION_SETS = {
     "gender": ["Female", "Male"],
@@ -147,8 +163,10 @@ def build_feature_vector(form):
         "PaymentMethod_Electronic check": 1 if form.get("payment_method") == "Electronic check" else 0,
         "PaymentMethod_Mailed check": 1 if form.get("payment_method") == "Mailed check" else 0,
     }
-
-    return np.array([[features[col] for col in FEATURE_COLUMNS]])
+    return pd.DataFrame(
+    [[features[col] for col in FEATURE_COLUMNS]],
+    columns=FEATURE_COLUMNS
+)
 
 
 @app.route("/", methods=["GET", "POST"])
